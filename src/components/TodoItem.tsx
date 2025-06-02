@@ -32,7 +32,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
   const handleToggle = async () => {
     try {
-      await toggleTodoAction(todo.id);
+      await toggleTodoAction(todo._id); // Changed from todo.id
     } catch (error) {
       console.error(error);
     }
@@ -40,11 +40,28 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
   const handleRemove = async () => {
     try {
-      await removeTodoAction(todo.id);
+      await removeTodoAction(todo._id); // Changed from todo.id
     } catch (error) {
       console.error(error);
     }
   };
+
+  //OLD SQL
+  // const handleToggle = async () => {
+  //   try {
+  //     await toggleTodoAction(todo.id);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const handleRemove = async () => {
+  //   try {
+  //     await removeTodoAction(todo.id);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">

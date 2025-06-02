@@ -1,34 +1,27 @@
-import type { ConnectionOptions, Connection } from "mysql2/promise";
-import mysql from "mysql2/promise";
+import mongoose from "mongoose";
 
-const connOptions: ConnectionOptions = {
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "shadcntodo",
-  connectionLimit: 10,
-};
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://argaenth:09EPg0uVeZ8cGiQX@shadcn.4bwmwc6.mongodb.net/shadcntodo";
 
-let connection: Connection | undefined = undefined;
-
-async function exit() {
-  try {
-    connection?.end();
-    console.log("disconnected from database");
-    connection = undefined;
-  } catch (e) {
-    throw e;
-  }
-  process.exit(0);
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-export async function connect(): Promise<Connection> {
+let cached: typeof mongoose | null = null;
+
+export async function connect() {
+  if (cached) {
+    return cached;
+  }
+
   try {
-    if (connection) return connection;
-    connection = await mysql.createConnection(connOptions);
-    process.on("SIGINT", () => exit());
-    return connection;
+    cached = await mongoose.connect(MONGODB_URI, {
+      bufferCommands: false,
+    });
+    return cached;
   } catch (e) {
+    cached = null;
     throw e;
   }
 }
