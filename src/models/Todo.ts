@@ -26,7 +26,7 @@ const TodoSchema = new Schema<ITodo>(
     },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt
+    timestamps: true,
   }
 );
 

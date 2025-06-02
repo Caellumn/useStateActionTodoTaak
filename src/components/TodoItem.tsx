@@ -32,7 +32,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
   const handleToggle = async () => {
     try {
-      await toggleTodoAction(todo._id); // Changed from todo.id
+      await toggleTodoAction(todo._id);
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +40,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
   const handleRemove = async () => {
     try {
-      await removeTodoAction(todo._id); // Changed from todo.id
+      await removeTodoAction(todo._id);
     } catch (error) {
       console.error(error);
     }

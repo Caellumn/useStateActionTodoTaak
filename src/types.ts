@@ -17,9 +17,9 @@ export interface ServerFeedback {
 }
 
 export interface Todo {
-  _id: string; // Changed from id: number
+  _id: string;
   task: string;
-  checked: boolean; // Changed from number
+  checked: boolean;
   image?: string | null;
   createdAt?: Date;
   updatedAt?: Date;

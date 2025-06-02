@@ -9,8 +9,9 @@ export const getAllTodos = unstable_cache(
       await connect();
       const todos = await TodoModel.find({}).sort({ createdAt: -1 }).lean();
 
-      // Convert MongoDB documents to our Todo interface
-      return todos.map((todo) => ({
+      //ignore the any type
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return todos.map((todo: any) => ({
         _id: todo._id.toString(),
         task: todo.task,
         checked: todo.checked,
